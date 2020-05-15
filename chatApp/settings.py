@@ -9,7 +9,7 @@ SECRET_KEY = 'kp3i)w8q8q&dhi52y#(ejs^74v*33-ub*l3$5%x)2e(a44t$2t'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['chatappwithsentiment.herokuapp.com']
 # Allowed 
 INSTALLED_APPS = [
     # System apps
