@@ -1,0 +1,46 @@
+{% extends 'chat/chat.html' %}
+
+
+
+{% block body %}
+<nav class="blue lighten-3" id="myTopnav">
+    <div class="nav-wrapper container">
+      <a href="#" class="brand-logo">ChatApplication</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="{% url 'chat:view_profile' %}"><h4>{{ request.user.username }}</h4></a></li>
+          <li><a href="{% url 'chat:logout' %}"><i class="material-icons">power_settings_new</i></a></li>
+      </ul>
+    </div>
+</nav>
+
+    <div class="section center" style="height: 80vh">
+    <div class="row" >
+	<br><br><br>
+        <div class="col s3">
+        <div class="card">
+            
+        </div>
+        </div>
+        <div class="col  s6">
+        <div class="card" >
+				
+                <span class="title" style="font-weight: bolder">First name: {{ user.first_name }}</span><br><br>
+                <span class="title" style="font-weight: bolder">Last name: {{ user.last_name }}</span><br><br>
+                <span class="title" style="font-weight: bolder">Username: {{ user }}</span><br><br>
+				<span class="title" style="font-weight: bolder">Email: {{ user.email }}</span><br><br>
+                
+				<div>
+					<button  class="btn left blue waves-effect pull-s12" ><a style="color:white" href="{% url 'chat:change_password' %}">Change Password</a></button>
+					<button  class="btn blue right waves-effect pull-s12" ><a style="color:white" href="{% url 'chat:chats' %}">Back</a></button>
+					<button  class="btn blue waves-effect pull-s12" ><a style="color:white" href="{% url 'chat:edit_profile' %}">Edit Profile</a></button>
+				</div>
+								
+             </div>   
+            
+        </div>
+        
+    </div>
+	</div>
+	
+	
+{% endblock %}
