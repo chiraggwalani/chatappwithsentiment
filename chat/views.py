@@ -56,6 +56,27 @@ def register(request):
     args = {'form': form}
     return render(request, 'chat/register.html', args)
 
+
+def view_profile(request, pk=None):
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
+    args = {'user': user}
+    return render(request, 'chat/profile.html', args)
+
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('chat:view_profile'))
+    else:
+        form = EditProfileForm(instance=request.user)
+        args = {'form': form}
+        return render(request, 'chat/edit_profile.html', args)
+
+
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -153,24 +174,6 @@ def message_view(request, sender, receiver):
                        'messages': Message.objects.filter(sender_id=sender, receiver_id=receiver) | Message.objects.filter(sender_id=receiver,receiver_id=sender),
                        'sentiment': Message.objects.filter(sender_id=sender, receiver_id=receiver) |Message.objects.filter(sender_id=receiver,receiver_id=sender)})
 
-def view_profile(request, pk=None):
-    if pk:
-        user = User.objects.get(pk=pk)
-    else:
-        user = request.user
-    args = {'user': user}
-    return render(request, 'chat/profile.html', args)
-
-def edit_profile(request):
-    if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('chat:view_profile'))
-    else:
-        form = EditProfileForm(instance=request.user)
-        args = {'form': form}
-        return render(request, 'chat/edit_profile.html', args)
 
 @login_required
 def change_password(request):
